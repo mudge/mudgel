@@ -12,4 +12,8 @@ Assign = Struct.new(:name, :expression) do
   def to_javascript
     "function (e) { e[#{JSON.dump(name)}] = (#{expression.to_javascript}(e)); return e; }"
   end
+
+  def to_clojure
+    "(fn [e] (assoc e #{name.inspect} (#{expression.to_clojure} e)))"
+  end
 end

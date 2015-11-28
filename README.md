@@ -9,16 +9,18 @@
     let i be one more than something known as i
 
 An experiment in implementing a (rather silly) programming language that
-compiles to different backends (specifically, Ruby and JavaScript) in order to
-explore the FizzBuzz problem.
+compiles to different backends (specifically, Ruby, JavaScript and Clojure) in
+order to explore the FizzBuzz problem.
 
 ## Usage
 
 ```console
 $ bin/mudgel --ruby fizzbuzz.mudgel > fizzbuzz.rb
 $ bin/mudgel --javascript fizzbuzz.mudgel > fizzbuzz.js
+$ bin/mudgel --clojure fizzbuzz.mudgel > fizzbuzz.clj
 $ ruby fizzbuzz.rb
 $ node fizzbuzz.js
+$ lein exec fizzbuzz.clj
 ```
 
 ## Acknowledgements

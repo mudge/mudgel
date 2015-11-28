@@ -16,6 +16,10 @@ OptionParser.new do |opts|
   opts.on('-j', '--javascript', 'Compile to JavaScript') do |v|
     language = :javascript
   end
+
+  opts.on('-c', '--clojure', 'Compile to Clojure') do |v|
+    language = :clojure
+  end
 end.parse!
 
 parser = MudgelParser.new
@@ -26,4 +30,6 @@ when :ruby
   puts "(#{ast.to_ruby}).call({})"
 when :javascript
   puts "(#{ast.to_javascript}({}));"
+when :clojure
+  puts "(#{ast.to_clojure} {})"
 end

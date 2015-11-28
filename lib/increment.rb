@@ -10,4 +10,8 @@ Increment = Struct.new(:value) do
   def to_javascript
     "function (e) { return (#{value.to_javascript}(e)) + 1; }"
   end
+
+  def to_clojure
+    "(fn [e] (inc (#{value.to_clojure} e)))"
+  end
 end

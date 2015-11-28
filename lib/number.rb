@@ -12,4 +12,8 @@ Number = Struct.new(:value) do
   def to_javascript
     "function (e) { return #{JSON.dump(value)}; }"
   end
+
+  def to_clojure
+    "(fn [e] #{value.inspect})"
+  end
 end

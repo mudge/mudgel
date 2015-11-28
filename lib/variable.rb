@@ -12,4 +12,8 @@ Variable = Struct.new(:name) do
   def to_javascript
     "function (e) { return e[#{JSON.dump(name)}]; }"
   end
+
+  def to_clojure
+    "(fn [e] (e #{name.inspect}))"
+  end
 end

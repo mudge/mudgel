@@ -105,7 +105,7 @@ grammar Mudgel
   end
 
   rule text
-    '"' value:[A-Za-z ]+ '"' {
+    '"' value:[^"]+ '"' {
       def to_ast
         Text.new(value.text_value)
       end

@@ -10,4 +10,8 @@ Println = Struct.new(:expression) do
   def to_javascript
     "function (e) { console.log(#{expression.to_javascript}(e)); return e; }"
   end
+
+  def to_clojure
+    "(fn [e] (println (#{expression.to_clojure} e)) e)"
+  end
 end

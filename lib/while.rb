@@ -11,4 +11,8 @@ While = Struct.new(:condition, :body) do
   def to_javascript
     "function (e) { while (#{condition.to_javascript}(e)) { e = (#{body.to_javascript}(e)); }; return e; }"
   end
+
+  def to_clojure
+    "(fn [e] (if (#{condition.to_clojure} e) (recur (#{body.to_clojure} e)) e))"
+  end
 end
