@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH.unshift('lib')
+require 'optparse'
+require 'mudgel'
+
+language = :ruby
+
+OptionParser.new do |opts|
+  opts.banner = 'Usage: mudgel [options]'
+
+  opts.on('-r', '--ruby', 'Compile to Ruby') do |v|
+    language = :ruby
+  end
+
+  opts.on('-j', '--javascript', 'Compile to JavaScript') do |v|
+    language = :javascript
+  end
+end.parse!
+
+parser = MudgelParser.new
+ast = parser.parse(ARGF.read.chomp).to_ast
+
+case language
+when :ruby
+  puts "(#{ast.to_ruby}).call({})"
+when :javascript
+  puts "(#{ast.to_javascript}({}));"
+end
