@@ -8,6 +8,12 @@
     i and 3 then print "Fizz" otherwise print something known as i followed by
     let i be one more than something known as i
 
+Or, if you prefer a slightly less adventurous grammar:
+
+    let i = 1; while (i < 101) { if (0 = i % 15) { print("FizzBuzz") } else {
+    if (0 = i % 5) { print("Buzz") } else { if (0 = i % 3) { print("Fuzz") }
+    else { print(i) } } }; let i = i + 1 }
+
 An experiment in implementing a (rather silly) programming language that
 compiles to different backends (specifically, Ruby, JavaScript and Clojure) in
 order to explore the FizzBuzz problem.

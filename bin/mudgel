@@ -23,7 +23,10 @@ OptionParser.new do |opts|
 end.parse!
 
 parser = MudgelParser.new
-ast = parser.parse(ARGF.read.chomp).to_ast
+parser2 = Mudgel2Parser.new
+source = ARGF.read.chomp
+
+ast = (parser.parse(source) || parser2.parse(source)).to_ast
 
 case language
 when :ruby
