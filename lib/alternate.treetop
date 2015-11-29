@@ -4,7 +4,7 @@ grammar Mudgel2
   end
 
   rule sequence
-    first:sequenced_statement '; ' second:sequence {
+    first:sequenced_statement ';' whitespace second:sequence {
       def to_ast
         Sequence.new(first.to_ast, second.to_ast)
       end
@@ -18,7 +18,7 @@ grammar Mudgel2
   end
 
   rule while
-    'while (' condition:expression ') { ' body:statement ' }' {
+    'while (' condition:expression ') {' whitespace body:statement whitespace '}' {
       def to_ast
         While.new(condition.to_ast, body.to_ast)
       end
@@ -34,7 +34,7 @@ grammar Mudgel2
   end
 
   rule if
-    'if (' condition:expression ') { ' consequence:statement ' } else { ' alternative:statement ' }' {
+    'if (' condition:expression ') {' whitespace consequence:statement whitespace '} else {' whitespace alternative:statement whitespace '}' {
       def to_ast
         If.new(condition.to_ast, consequence.to_ast, alternative.to_ast)
       end
@@ -65,7 +65,7 @@ grammar Mudgel2
   end
 
   rule increment
-    value:modulo ' + 1' {
+    value:modulo  ' + 1' {
       def to_ast
         Increment.new(value.to_ast)
       end
@@ -118,5 +118,9 @@ grammar Mudgel2
         Println.new(term.to_ast)
       end
     }
+  end
+
+  rule whitespace
+    [\s\n]*
   end
 end

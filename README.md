@@ -10,9 +10,23 @@
 
 Or, if you prefer a slightly less adventurous grammar:
 
-    let i = 1; while (i < 101) { if (0 = i % 15) { print("FizzBuzz") } else {
-    if (0 = i % 5) { print("Buzz") } else { if (0 = i % 3) { print("Fizz") }
-    else { print(i) } } }; let i = i + 1 }
+    let i = 1;
+    while (i < 101) {
+      if (0 = i % 15) {
+        print("FizzBuzz")
+      } else {
+        if (0 = i % 5) {
+          print("Buzz")
+        } else {
+          if (0 = i % 3) {
+            print("Fizz")
+          } else {
+            print(i)
+          }
+        }
+      };
+      let i = i + 1
+    }
 
 An experiment in implementing a (rather silly) programming language that
 compiles to different backends (specifically, Ruby, JavaScript and Clojure) in
