@@ -28,6 +28,21 @@ Or, if you prefer a slightly less adventurous grammar:
       let i = i + 1
     }
 
+Or, if you are a fan of parentheses:
+
+    (do
+      (let i 1)
+      (while (< i 101)
+             (do
+                (if (= 0 (% i 15))
+                    (print "FizzBuzz")
+                    (if (= 0 (% i 5))
+                        (print "Buzz")
+                        (if (= 0 (% i 3))
+                            (print "Fizz")
+                            (print i))))
+                (let i (inc i)))))
+
 An experiment in implementing a (rather silly) programming language that
 compiles to different backends (specifically, Ruby, JavaScript and Clojure) in
 order to explore the FizzBuzz problem.

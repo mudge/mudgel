@@ -1,10 +1,10 @@
-grammar Mudgel
+grammar Mudgel3
   rule statement
     sequence
   end
 
   rule sequence
-    'firstly, ' first:sequenced_statement ' followed by ' second:sequence {
+    '(do' mandatory_whitespace first:sequenced_statement mandatory_whitespace second:sequence ')' {
       def to_ast
         Sequence.new(first.to_ast, second.to_ast)
       end
@@ -18,7 +18,7 @@ grammar Mudgel
   end
 
   rule while
-    'while ' condition:expression ', ' body:statement {
+    '(while' mandatory_whitespace condition:expression mandatory_whitespace body:statement ')' {
       def to_ast
         While.new(condition.to_ast, body.to_ast)
       end
@@ -26,7 +26,7 @@ grammar Mudgel
   end
 
   rule assign
-    'let ' name:[a-z]+ ' be ' expression {
+    '(let' mandatory_whitespace name:[a-z]+ mandatory_whitespace expression ')' {
       def to_ast
         Assign.new(name.text_value.to_sym, expression.to_ast)
       end
@@ -34,7 +34,7 @@ grammar Mudgel
   end
 
   rule if
-    'if ' condition:expression ' then ' consequence:statement ' otherwise ' alternative:statement {
+    '(if' mandatory_whitespace condition:expression mandatory_whitespace consequence:statement mandatory_whitespace alternative:statement ')' {
       def to_ast
         If.new(condition.to_ast, consequence.to_ast, alternative.to_ast)
       end
@@ -46,7 +46,7 @@ grammar Mudgel
   end
 
   rule less_than
-    left:increment ' is less than ' right:less_than {
+    '(<' mandatory_whitespace left:increment mandatory_whitespace right:less_than ')' {
       def to_ast
         LessThan.new(left.to_ast, right.to_ast)
       end
@@ -56,16 +56,17 @@ grammar Mudgel
   end
 
   rule equals
-    left:increment ' is equal to ' right:equals {
+    '(=' mandatory_whitespace left:increment mandatory_whitespace right:equals ')' {
       def to_ast
         Equal.new(left.to_ast, right.to_ast)
       end
     }
-    / increment
+    /
+    increment
   end
 
   rule increment
-    'one more than ' value:increment {
+    '(inc' mandatory_whitespace value:increment ')' {
       def to_ast
         Increment.new(value.to_ast)
       end
@@ -75,13 +76,21 @@ grammar Mudgel
   end
 
   rule modulo
-    'the remainder after dividing ' left:term ' and ' right:modulo {
+    '(%' mandatory_whitespace left:term mandatory_whitespace right:modulo ')' {
       def to_ast
         Modulo.new(left.to_ast, right.to_ast)
       end
     }
     /
     term
+  end
+
+  rule println
+    '(print' mandatory_whitespace term ')' {
+      def to_ast
+        Println.new(term.to_ast)
+      end
+    }
   end
 
   rule term
@@ -97,9 +106,9 @@ grammar Mudgel
   end
 
   rule variable
-    'something known as ' name:[a-z]+ {
+    [a-z]+ {
       def to_ast
-        Variable.new(name.text_value.to_sym)
+        Variable.new(text_value.to_sym)
       end
     }
   end
@@ -112,11 +121,12 @@ grammar Mudgel
     }
   end
 
-  rule println
-    'print ' term {
-      def to_ast
-        Println.new(term.to_ast)
-      end
-    }
+  rule mandatory_whitespace
+    [\s\n]+
+  end
+
+  rule whitespace
+    [\s\n]*
   end
 end
+

@@ -24,9 +24,10 @@ end.parse!
 
 parser = MudgelParser.new
 parser2 = Mudgel2Parser.new
+parser3 = Mudgel3Parser.new
 source = ARGF.read.chomp
 
-ast = (parser.parse(source) || parser2.parse(source)).to_ast
+ast = (parser.parse(source) || parser2.parse(source) || parser3.parse(source)).to_ast
 
 case language
 when :ruby

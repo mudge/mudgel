@@ -1,0 +1,12 @@
+(do
+  (let i 1)
+  (while (< i 101)
+         (do
+            (if (= 0 (% i 15))
+                (print "FizzBuzz")
+                (if (= 0 (% i 5))
+                    (print "Buzz")
+                    (if (= 0 (% i 3))
+                        (print "Fizz")
+                        (print i))))
+            (let i (inc i)))))
